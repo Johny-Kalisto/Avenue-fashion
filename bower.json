@@ -1,0 +1,23 @@
+{
+  "name": "ave",
+  "authors": [
+    "Rudy Clark <rudy-clark@mail.ru>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "2.1.4"
+  },
+  "devDependencies": {
+    "lodash": "^4.17.4"
+  }
+}

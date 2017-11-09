@@ -1,0 +1,456 @@
+/* --------------- reset.css --------------- */
+html, body, div, span, h1, h2, h3, h4, h5, h6, p, em, img, strong, sub, sup, b, u, i,  dl, dt, dd, ol, ul, li, fieldset, form, label, table, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;                               /* обнуляем отступы и убираем бордюры */
+    vertical-align: baseline;          /* приводим все к одной базовой линии */
+    background: transparent;      /* чтобы не проскакивали левые фоны, установленные по умолчанию */
+    font-size: 100%;                     /* размер шрифта всем одинаковый */
+}
+a {                                              /* ссылка не в общем списке чтобы не сбрасывать outline по умолчанию */
+    margin:0;
+    padding:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+    outline:none;
+    color: #222222;
+}
+table {                     /* устраняем отступы между ячейками таблицы */
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+td, td img {
+    vertical-align: top;            /* возвращаем привычное вертикальное выравнивание */
+}
+input, select, button, textarea {
+    margin: 0;              /* убираем отступы по умолчанию для элементов форм (в частности для checkbox и radio) */
+    font-size: 100%;            /* делаем размер шрифтов везде одинаковым */
+    outline: none;
+}
+input[type="text"], input[type="password"], textarea {
+    padding: 0;                 /* убираем внутренние отступы для текстовых полей */
+}
+input[type="checkbox"] {        /* вертикальное выравнивание чекбоксов и радиобатонов относительно меток */
+    vertical-align: bottom;
+}
+input[type="radio"] {
+    vertical-align: text-bottom;
+}
+sub {
+    vertical-align: sub;
+    font-size: smaller;
+}
+sup {
+    vertical-align: super;
+    font-size: smaller;
+}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+    display:block;
+}
+nav ul {
+    list-style:none;
+}
+/* --------------- /reset.css --------------- */
+
+/* --------------- базовые настройки ---------*/
+html {
+    min-height:100%; /* всегда показываем вертикальную полосу прокрутки  */
+}
+body {
+    background: #fff;
+    color: #000;
+    text-align: left;
+    font-size: 1em; /* используем безопасные шрифтовые CSS стеки */
+    min-height:100%;
+    font-family: 'Montserrat', sans-serif;
+}
+a, a:visited { /* порядок правил для ссылок имеет значение */
+    color: #222;
+    text-decoration: none;
+}
+a:hover {
+    color: #00c8c8;
+    text-decoration:none;
+}
+a:focus, a:active {
+    color: #222;
+    text-decoration: underline;
+}
+h1, h2, h3, h4, h5, h6{
+    font-weight:normal;
+}
+img{
+
+    max-width:100%;
+}
+.clr{
+    clear:both;
+}
+.clearfix:after {
+    clear: both;
+    content: "";
+    display: table;
+}
+/* --------------- /базовые настройки ---------*/
+.common-main-block{
+    max-width: 2050px;
+    margin: 0 auto;
+}
+.header-main-block{
+    width: 100%;
+    margin: 0 auto;
+    background: #333333;
+}
+.header{
+
+}
+.header-top{
+    font-size: 0.8125em;
+    color: #fff!important;
+}
+.currency a{
+    display: block;
+    float: left;
+    color: #fff!important;
+    padding: 15px 0 15px 0;
+}
+.center-main-block{
+    max-width: 1180px;
+    margin: 0 auto;
+}
+.register-basket{
+    color: #fff!important;
+    float: right;
+    list-style: none;
+
+}
+.register-basket a{
+    color: #fff!important;
+    float: left;
+    display: block;
+    padding: 15px 15px;
+}
+.register-basket a:nth-child(2){
+    margin-right: 65px;
+}
+.basket{
+    background: #00c8c8!important;
+    color: #fff!important;
+    padding: 15px 25px;
+
+}
+.basket img{
+    margin-right: 20px;
+    align-items: center;
+    vertical-align: middle;
+}
+.wrap-menu-slider{
+    max-width: 2050px;
+    min-height: 900px;
+    margin: 0 auto;
+
+}
+.menu-slider{
+    text-transform: uppercase;
+    font-size: 0.8125em;
+    position: relative;
+    display: block;
+}
+.logo{
+    font-size: 1.5em;
+    display: table;
+    position: absolute;
+    margin: 38px 0 0 6.6%
+
+}
+.logo strong{
+    font-weight: 600;
+
+}
+
+.slider-center-main-block{
+    position: relative;
+    max-width: 1180px;
+    margin: 0 auto;
+}
+.menu{
+    float: right;
+
+
+}
+.menu li{
+    display: block;
+    float: left;
+    margin-top: 45px;
+    margin-right: 50px;
+}
+.menu li:nth-child(5){
+    margin-right: 25px;
+}
+
+.my-slider{
+    position: absolute;
+    display: block;
+}
+
+.wrap-search-form{
+    position: absolute;
+    top: 0;
+    right: 125px;
+}
+.search-form{
+    position: relative;
+
+}
+.search{
+    padding: 9px 10px 9px 10px;
+    font-size: 0.8125em;
+    color: #989898;
+    border: 1px solid #e7e7e7;
+    background: transparent;
+    box-sizing: border-box;
+}
+input::-webkit-search-cancel-button,
+input::-webkit-search-decoration,
+input::-webkit-search-results-button,
+input::-webkit-search-results-decoration {
+    display: none;
+}
+.search-icon{
+    position: absolute;
+    top: 7px;
+    right: 10px;
+}
+
+.input-search{
+    margin: 36px 6.82% 0 0;
+
+}
+.my-slider ul li img{
+    width: 100%;
+    margin: 0 auto;
+}
+.my-slider ul{
+    position: relative;
+}
+.my-slider ul li a{
+    position: absolute;
+    font-size: 1em;
+    font-weight: 600;
+    color: #454647;
+    letter-spacing: 3px;
+    padding: 20px 30px;
+    border: 2px solid #737373;
+    bottom: 120px;
+    right: 323px;
+}
+.my-slider ul li a:hover{
+    color: #fff;
+    border: none;
+    background: #00c8c8;
+}
+.content-products{
+    max-width: 1785px;
+    margin: 60px auto 0 auto;
+    border-top: 1px solid #eeeeee;
+
+
+}
+.filter{
+    color: #727272;
+    font-size: 0.8125em;
+    text-transform: uppercase;
+    margin-top: 55px;
+}
+.filter ul li{
+    float:left;
+    margin-right: 53px;
+}
+.two-block-products{
+    display: block;
+    padding: 60px 0;
+    overflow: hidden;
+    width: 100%;
+}
+.left-block div article a{
+    position: relative;
+}
+.info-product-more{
+    position: absolute;
+    width: 69px!important;
+    height: 68px!important;
+    top: 44.77%;
+    left: 44.77%;
+    display: none;
+}
+
+.two-block-products div article p{
+    color: #9a9a9a;
+    font-size: 0.8125em;
+    position: absolute;
+    top: 15px;
+    left: 15px;
+}
+.two-block-products div article{
+    position: relative;
+}
+/*Подробные детали при наведении на продукт*/
+.two-block-products div article:hover{
+    -webkit-box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.14);
+    -moz-box-shadow:  0 2px 24px 0 rgba(0, 0, 0, 0.14);
+    box-shadow:  0 0 24px 0 rgba(0, 0, 0, 0.14);
+
+}
+.two-block-products div article:hover .details-product{
+    -webkit-box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.14);
+    -moz-box-shadow:  0 2px 24px 0 rgba(0, 0, 0, 0.14);
+    box-shadow:  0 8px 24px 0 rgba(0, 0, 0, 0.14);
+    display: block;
+}
+.two-block-products div article:hover .info-product-more{
+    display: block;
+    z-index: 999999;
+}
+.two-block-products div article:hover .two-block-products>div>article>a>img{
+    border-bottom: 1px solid #eeeeee;
+}
+/*  ****end****  */
+.two-block-products>div>article>a>img{
+    width: 100%;
+    height: 100%;
+
+}
+.two-block-products div .main-product{
+    height: 900px!important;
+}
+
+.left-block{
+    width: 49%;
+    float: left;
+}
+
+.left-block .top-left-product{
+    width: 49%;
+    float: left;
+}
+.left-block .top-right-product{
+    width: 49%;
+    float: right;
+}
+.left-block .main-product{
+    margin-top: 30px!important;
+}
+.left-block article{
+    height: 500px;
+    display: inline-block;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.left-block .main-product{
+    height: 700px!important;
+    width: 100%;
+}
+.right-block{
+    width: 49%;
+    float: right;
+}
+.right-block article{
+    display: inline-block;
+    height: 500px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.right-block .main-product{
+    height: 700px;
+    width: 100%;
+}
+.right-block .bottom-left-product, .bottom-right-product{
+    margin-top: 27px;
+}
+.right-block .bottom-left-product{
+    float: left;
+    width: 49%;
+}
+.right-block .bottom-right-product{
+    float: right;
+    width: 49%
+}
+.left-block article .details-product{
+    width: 100%!important;
+    display: none;
+    position: relative;
+    top: -5px;
+    z-index: 1000;
+    background: #fff;
+    height: 150px;
+
+}
+.right-block article .details-product{
+    width: 100%!important;
+    display: none;
+    position: relative;
+    top: -5px;
+    z-index: 1000;
+    background: #fff;
+    height: 150px;
+}
+
+.details-product h3{
+    color: #727272;
+    font-size: 1em!important;
+    text-transform: uppercase;
+    font-weight: 600;
+    text-align: center;
+    padding-top: 22px;
+}
+.details-product p{
+    position: inherit!important;
+    font-size: 0.9375em!important;
+    color: #8e8c8c!important;
+    text-align: center!important;
+    padding-bottom: 25px;
+
+}
+.details-product .add-icons{
+    position: absolute;
+    left: 40%;
+    bottom: 17px;
+}
+.details-product .add-icons a{
+    margin-right: 14px;
+    float: left;
+    padding: 4px;
+    display: inline-block;
+    border-radius: 50%!important;
+    background-color: #727272!important;
+}
+.details-product .add-icons a:nth-child(3){
+    margin-right: 0!important;
+}
+.details-product .add-icons a img{
+    width: 20px!important;
+    height: 20px!important;
+    vertical-align: middle;
+}
+
+/* При наведении на иконки продуктов*/
+.details-product .add-icons a:hover{
+    background-color: #00c8c8!important;
+}
+/*end*/
+.left-block .top-left-product, .top-right-product .details-product{
+    width: 49%!important;
+}
+.right-block .bottom-left-product, .bottom-right-product .details-product{
+    width: 49%!important;
+}
+.main-product .details-product{
+    width: 100%!important;
+}
+.main-product .details-product .add-icons a{
+    margin-left: 20px;
+}
