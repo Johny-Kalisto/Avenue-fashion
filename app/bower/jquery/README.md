@@ -1,85 +1,67 @@
-[jQuery](http://jquery.com/) - New Wave Javascript
-================================
+# jQuery
 
-What you need to build your own jQuery
----------------------------------------
-* Make sure that you have Java installed (if you want to build a minified version of jQuery).  
-If not, [go to this page](http://java.sun.com/javase/downloads/index.jsp) and download "Java Runtime Environment (JRE) 5.0"
+> jQuery is a fast, small, and feature-rich JavaScript library.
 
-Build Options
---------------
+For information on how to get started and how to use jQuery, please see [jQuery's documentation](http://api.jquery.com/).
+For source files and issues, please visit the [jQuery repo](https://github.com/jquery/jquery).
 
-You now have **three** options for building jQuery:
+If upgrading, please see the [blog post for 3.2.1](https://blog.jquery.com/2017/03/20/jquery-3-2-1-now-available/). This includes notable differences from the previous version and a more readable changelog.
 
-* **`make`**: If you have access to common UNIX commands (like `make`, `mkdir`, `rm`, `cat`, and `echo`) then simply type `make` to build all the components.
+## Including jQuery
 
-* **`rake`**: If you have Ruby Rake installed (on either Windows or UNIX/Linux), you can simply type `rake` to build all the components.
+Below are some of the most common ways to include jQuery.
 
-* **`ant`**: If you have Ant installed (or are on Windows and don't have access to make). You can download Ant from here: [http://ant.apache.org/bindownload.cgi].
+### Browser
 
-How to build your own jQuery
------------------------------
+#### Script tag
 
-*Note: If you are using either `rake` or `ant`, substitute your chosen method in place of `make` in the examples below. They work identically for all intents and purposes. Quick reference is also available for `rake` by typing `rake -T` in the `jquery` directory.*
+```html
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+```
 
-In the main directory of the distribution (the one that this file is in), type
-the following to make all versions of jQuery:
+#### Babel
 
-    make
+[Babel](http://babeljs.io/) is a next generation JavaScript compiler. One of the features is the ability to use ES6/ES2015 modules now, even though browsers do not yet support this feature natively.
 
-*Here are the individual items that are buildable from the Makefile:*
+```js
+import $ from "jquery";
+```
 
-    make init
+#### Browserify/Webpack
 
-Pull in all the external dependencies (QUnit, Sizzle) for the project.
+There are several ways to use [Browserify](http://browserify.org/) and [Webpack](https://webpack.github.io/). For more information on using these tools, please refer to the corresponding project's documention. In the script, including jQuery will usually look like this...
 
-    make jquery
+```js
+var $ = require("jquery");
+```
 
-The standard, uncompressed, jQuery code.  
-Makes: `./dist/jquery.js`
+#### AMD (Asynchronous Module Definition)
 
-    make min
+AMD is a module format built for the browser. For more information, we recommend [require.js' documentation](http://requirejs.org/docs/whyamd.html).
 
-A compressed version of jQuery (made the Closure Compiler).  
-Makes: `./dist/jquery.min.js`
+```js
+define(["jquery"], function($) {
 
-    make lint
+});
+```
 
-Tests a build of jQuery against JSLint, looking for potential errors or bits of confusing code.
+### Node
 
-    make selector
+To include jQuery in [Node](nodejs.org), first install with npm.
 
-Builds the selector library for jQuery from Sizzle.  
-Makes: `./src/selector.js`
+```sh
+npm install jquery
+```
 
-Finally, you can remove all the built files using the command:
-  
-    make clean
+For jQuery to work in Node, a window with a document is required. Since no such window exists natively in Node, one can be mocked by tools such as [jsdom](https://github.com/tmpvar/jsdom). This can be useful for testing purposes.
 
-Building to a different directory
-----------------------------------
+```js
+require("jsdom").env("", function(err, window) {
+	if (err) {
+		console.error(err);
+		return;
+	}
 
-If you want to build jQuery to a directory that is different from the default location, you can...
-
-**Make only:** Specify the PREFIX directory, for example:
-  
-    make PREFIX=/home/john/test/ [command]
-    
-With this example, the output files would be contained in `/home/john/test/dist/`
-
-**Rake only:** Define the DIST_DIR directory, for example:
-
-    rake DIST_DIR=/home/john/test/ [command]
-    
-With this example, the output files would be contained in `/home/john/test/`
-
-*In both examples, `[command]` is optional.*
-
-**Ant only:** You cannot currently build to another directory when using Ant.
-
-Questions?
-----------
-
-If you have any questions, please feel free to ask them on the Developing jQuery Core
-forum, which can be found here:  
-[http://forum.jquery.com/developing-jquery-core](http://forum.jquery.com/developing-jquery-core)
+	var $ = require("jquery")(window);
+});
+```

@@ -1,224 +1,179 @@
-(function( jQuery ) {
+define( [
+	"./core",
+	"./core/access",
+	"./data/var/dataPriv",
+	"./data/var/dataUser"
+], function( jQuery, access, dataPriv, dataUser ) {
 
-var windowData = {},
-	rbrace = /^(?:\{.*\}|\[.*\])$/;
+"use strict";
 
-jQuery.extend({
-	cache: {},
+//	Implementation Summary
+//
+//	1. Enforce API surface and semantic compatibility with 1.9.x branch
+//	2. Improve the module's maintainability by reducing the storage
+//		paths to a single mechanism.
+//	3. Use the same single mechanism to support "private" and "user" data.
+//	4. _Never_ expose "private" data to user code (TODO: Drop _data, _removeData)
+//	5. Avoid exposing implementation details on user objects (eg. expando properties)
+//	6. Provide a clear path for implementation upgrade to WeakMap in 2014
 
-	// Please use with caution
-	uuid: 0,
+var rbrace = /^(?:\{[\w\W]*\}|\[[\w\W]*\])$/,
+	rmultiDash = /[A-Z]/g;
 
-	// Unique for each copy of jQuery on the page	
-	expando: "jQuery" + jQuery.now(),
-
-	// The following elements throw uncatchable exceptions if you
-	// attempt to add expando properties to them.
-	noData: {
-		"embed": true,
-		// Ban all objects except for Flash (which handle expandos)
-		"object": "clsid:D27CDB6E-AE6D-11cf-96B8-444553540000",
-		"applet": true
-	},
-
-	data: function( elem, name, data ) {
-		if ( !jQuery.acceptData( elem ) ) {
-			return;
-		}
-
-		elem = elem == window ?
-			windowData :
-			elem;
-
-		var isNode = elem.nodeType,
-			id = isNode ? elem[ jQuery.expando ] : null,
-			cache = jQuery.cache, thisCache;
-
-		if ( isNode && !id && typeof name === "string" && data === undefined ) {
-			return;
-		}
-
-		// Get the data from the object directly
-		if ( !isNode ) {
-			cache = elem;
-
-		// Compute a unique ID for the element
-		} else if ( !id ) {
-			elem[ jQuery.expando ] = id = ++jQuery.uuid;
-		}
-
-		// Avoid generating a new cache unless none exists and we
-		// want to manipulate it.
-		if ( typeof name === "object" ) {
-			if ( isNode ) {
-				cache[ id ] = jQuery.extend(cache[ id ], name);
-
-			} else {
-				jQuery.extend( cache, name );
-			}
-
-		} else if ( isNode && !cache[ id ] ) {
-			cache[ id ] = {};
-		}
-
-		thisCache = isNode ? cache[ id ] : cache;
-
-		// Prevent overriding the named cache with undefined values
-		if ( data !== undefined ) {
-			thisCache[ name ] = data;
-		}
-
-		return typeof name === "string" ? thisCache[ name ] : thisCache;
-	},
-
-	removeData: function( elem, name ) {
-		if ( !jQuery.acceptData( elem ) ) {
-			return;
-		}
-
-		elem = elem == window ?
-			windowData :
-			elem;
-
-		var isNode = elem.nodeType,
-			id = isNode ? elem[ jQuery.expando ] : elem,
-			cache = jQuery.cache,
-			thisCache = isNode ? cache[ id ] : id;
-
-		// If we want to remove a specific section of the element's data
-		if ( name ) {
-			if ( thisCache ) {
-				// Remove the section of cache data
-				delete thisCache[ name ];
-
-				// If we've removed all the data, remove the element's cache
-				if ( isNode && jQuery.isEmptyObject(thisCache) ) {
-					jQuery.removeData( elem );
-				}
-			}
-
-		// Otherwise, we want to remove all of the element's data
-		} else {
-			if ( isNode && jQuery.support.deleteExpando ) {
-				delete elem[ jQuery.expando ];
-
-			} else if ( elem.removeAttribute ) {
-				elem.removeAttribute( jQuery.expando );
-
-			// Completely remove the data cache
-			} else if ( isNode ) {
-				delete cache[ id ];
-
-			// Remove all fields from the object
-			} else {
-				for ( var n in elem ) {
-					delete elem[ n ];
-				}
-			}
-		}
-	},
-
-	// A method for determining if a DOM node can handle the data expando
-	acceptData: function( elem ) {
-		if ( elem.nodeName ) {
-			var match = jQuery.noData[ elem.nodeName.toLowerCase() ];
-
-			if ( match ) {
-				return !(match === true || elem.getAttribute("classid") !== match);
-			}
-		}
-
+function getData( data ) {
+	if ( data === "true" ) {
 		return true;
 	}
-});
 
-jQuery.fn.extend({
-	data: function( key, value ) {
-		var data = null;
-
-		if ( typeof key === "undefined" ) {
-			if ( this.length ) {
-				var attr = this[0].attributes, name;
-				data = jQuery.data( this[0] );
-
-				for ( var i = 0, l = attr.length; i < l; i++ ) {
-					name = attr[i].name;
-
-					if ( name.indexOf( "data-" ) === 0 ) {
-						name = name.substr( 5 );
-						dataAttr( this[0], name, data[ name ] );
-					}
-				}
-			}
-
-			return data;
-
-		} else if ( typeof key === "object" ) {
-			return this.each(function() {
-				jQuery.data( this, key );
-			});
-		}
-
-		var parts = key.split(".");
-		parts[1] = parts[1] ? "." + parts[1] : "";
-
-		if ( value === undefined ) {
-			data = this.triggerHandler("getData" + parts[1] + "!", [parts[0]]);
-
-			// Try to fetch any internally stored data first
-			if ( data === undefined && this.length ) {
-				data = jQuery.data( this[0], key );
-				data = dataAttr( this[0], key, data );
-			}
-
-			return data === undefined && parts[1] ?
-				this.data( parts[0] ) :
-				data;
-
-		} else {
-			return this.each(function() {
-				var $this = jQuery( this ),
-					args = [ parts[0], value ];
-
-				$this.triggerHandler( "setData" + parts[1] + "!", args );
-				jQuery.data( this, key, value );
-				$this.triggerHandler( "changeData" + parts[1] + "!", args );
-			});
-		}
-	},
-
-	removeData: function( key ) {
-		return this.each(function() {
-			jQuery.removeData( this, key );
-		});
+	if ( data === "false" ) {
+		return false;
 	}
-});
 
-function dataAttr( elem, key, data ) {
-	// If nothing was found internally, try to fetch any
-	// data from the HTML5 data-* attribute
-	if ( data === undefined && elem.nodeType === 1 ) {
-		data = elem.getAttribute( "data-" + key );
+	if ( data === "null" ) {
+		return null;
+	}
 
-		if ( typeof data === "string" ) {
-			try {
-				data = data === "true" ? true :
-				data === "false" ? false :
-				data === "null" ? null :
-				!jQuery.isNaN( data ) ? parseFloat( data ) :
-					rbrace.test( data ) ? jQuery.parseJSON( data ) :
-					data;
-			} catch( e ) {}
+	// Only convert to a number if it doesn't change the string
+	if ( data === +data + "" ) {
+		return +data;
+	}
 
-			// Make sure we set the data so it isn't changed later
-			jQuery.data( elem, key, data );
-
-		} else {
-			data = undefined;
-		}
+	if ( rbrace.test( data ) ) {
+		return JSON.parse( data );
 	}
 
 	return data;
 }
 
-})( jQuery );
+function dataAttr( elem, key, data ) {
+	var name;
+
+	// If nothing was found internally, try to fetch any
+	// data from the HTML5 data-* attribute
+	if ( data === undefined && elem.nodeType === 1 ) {
+		name = "data-" + key.replace( rmultiDash, "-$&" ).toLowerCase();
+		data = elem.getAttribute( name );
+
+		if ( typeof data === "string" ) {
+			try {
+				data = getData( data );
+			} catch ( e ) {}
+
+			// Make sure we set the data so it isn't changed later
+			dataUser.set( elem, key, data );
+		} else {
+			data = undefined;
+		}
+	}
+	return data;
+}
+
+jQuery.extend( {
+	hasData: function( elem ) {
+		return dataUser.hasData( elem ) || dataPriv.hasData( elem );
+	},
+
+	data: function( elem, name, data ) {
+		return dataUser.access( elem, name, data );
+	},
+
+	removeData: function( elem, name ) {
+		dataUser.remove( elem, name );
+	},
+
+	// TODO: Now that all calls to _data and _removeData have been replaced
+	// with direct calls to dataPriv methods, these can be deprecated.
+	_data: function( elem, name, data ) {
+		return dataPriv.access( elem, name, data );
+	},
+
+	_removeData: function( elem, name ) {
+		dataPriv.remove( elem, name );
+	}
+} );
+
+jQuery.fn.extend( {
+	data: function( key, value ) {
+		var i, name, data,
+			elem = this[ 0 ],
+			attrs = elem && elem.attributes;
+
+		// Gets all values
+		if ( key === undefined ) {
+			if ( this.length ) {
+				data = dataUser.get( elem );
+
+				if ( elem.nodeType === 1 && !dataPriv.get( elem, "hasDataAttrs" ) ) {
+					i = attrs.length;
+					while ( i-- ) {
+
+						// Support: IE 11 only
+						// The attrs elements can be null (#14894)
+						if ( attrs[ i ] ) {
+							name = attrs[ i ].name;
+							if ( name.indexOf( "data-" ) === 0 ) {
+								name = jQuery.camelCase( name.slice( 5 ) );
+								dataAttr( elem, name, data[ name ] );
+							}
+						}
+					}
+					dataPriv.set( elem, "hasDataAttrs", true );
+				}
+			}
+
+			return data;
+		}
+
+		// Sets multiple values
+		if ( typeof key === "object" ) {
+			return this.each( function() {
+				dataUser.set( this, key );
+			} );
+		}
+
+		return access( this, function( value ) {
+			var data;
+
+			// The calling jQuery object (element matches) is not empty
+			// (and therefore has an element appears at this[ 0 ]) and the
+			// `value` parameter was not undefined. An empty jQuery object
+			// will result in `undefined` for elem = this[ 0 ] which will
+			// throw an exception if an attempt to read a data cache is made.
+			if ( elem && value === undefined ) {
+
+				// Attempt to get data from the cache
+				// The key will always be camelCased in Data
+				data = dataUser.get( elem, key );
+				if ( data !== undefined ) {
+					return data;
+				}
+
+				// Attempt to "discover" the data in
+				// HTML5 custom data-* attrs
+				data = dataAttr( elem, key );
+				if ( data !== undefined ) {
+					return data;
+				}
+
+				// We tried really hard, but the data doesn't exist.
+				return;
+			}
+
+			// Set the data...
+			this.each( function() {
+
+				// We always store the camelCased key
+				dataUser.set( this, key, value );
+			} );
+		}, null, value, arguments.length > 1, null, true );
+	},
+
+	removeData: function( key ) {
+		return this.each( function() {
+			dataUser.remove( this, key );
+		} );
+	}
+} );
+
+return jQuery;
+} );
