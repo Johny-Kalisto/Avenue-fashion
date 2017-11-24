@@ -1,4 +1,4 @@
-@import url('main.css');
+@import url('media.css');
 /* --------------- reset.css --------------- */
 html, body, div, span, h1, h2, h3, h4, h5, h6, p, em, img, strong, sub, sup, b, u, i,  dl, dt, dd, ol, ul, li, fieldset, form, label, table, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video {
     margin: 0;
@@ -203,7 +203,6 @@ img{
 }
 .search-form{
     position: relative;
-
 }
 .search{
     padding: 9px 10px 9px 10px;
@@ -221,12 +220,13 @@ input::-webkit-search-results-decoration {
 }
 .search-icon{
     position: absolute;
-    top: 7px;
+    top: 10px;
     right: 10px;
 }
 
 .input-search{
     margin: 36px 6.82% 0 0;
+    position: relative;
 
 }
 .my-slider ul li img{
@@ -249,8 +249,8 @@ input::-webkit-search-results-decoration {
 }
 .my-slider ul li a:hover{
     color: #fff;
-    border: none;
     background: #00c8c8;
+    border: 2px solid #00c8c8;
 }
 .content-products{
     max-width: 1785px;
@@ -517,4 +517,107 @@ article.lookbook:nth-child(3){
 footer{
     margin-top: 120px;
     display: block;
+    background-color: #f8f8f8;
 }
+.ftr-content{
+    max-width: 1170px;
+    margin: 0 auto;
+    padding: 50px 0 50px 0;
+}
+.ftr-content article {
+    width: 20%;
+    float: left;
+}
+.ftr-content article ul{
+    list-style: none;
+}
+.ftr-content article h1{
+    color: #575153;
+    font-size: 0.8124em;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+    font-weight: 600;
+}
+.ftr-content article ul li{
+    margin-bottom: 15px;
+}
+.ftr-content article ul li a {
+    color: #727272;
+    font-size: 0.875em;
+}
+/*hover footer elements*/
+.ftr-content article ul li a:hover{
+    text-decoration: underline;
+}
+/*end*/
+.ftr-content article p{
+    color: #727272;
+    font-size: 0.875em;
+    margin-bottom: 15px;
+}
+.award-social-blocks{
+    max-width: 100%;
+    margin-top: 60px;
+
+    
+}
+.award-social-blocks .award{
+    float: left;
+    width: 49.25%;
+}
+.award{
+    background-color: #333333;
+}
+.award h1{
+    color: #fff;
+    font-size: 2.25em;
+    text-align: center;
+    text-transform: uppercase;
+    padding: 60px 57px 60px 30px;
+
+}
+.award-social-blocks .social{
+    float: right;
+    width: 49.25%;
+}
+.award-social-blocks .social{
+    position: relative;
+    background-color: #00c8c8;
+    min-height: 208px;
+}
+.award-social-blocks .social a{
+    position: absolute;
+    display: block;
+    left: 25.26%;
+    top: 41%;
+}
+.social a:nth-child(2){
+    left: 38.77%;
+}
+.social a:nth-child(3){
+    left: 52.28%;
+}
+.social a:nth-child(4){
+    left: 67.79%;
+}
+.author-copyright{
+    background-color: #333333;
+    padding: 15px 0
+}
+.author-copyright .center-footer-block{
+    max-width: 1170px;
+    margin: 0 auto;
+}
+.author-copyright .center-footer-block p:nth-child(1){
+    float: left;
+    color: #999999;
+    font-size: 0.8125em;
+}
+.author-copyright .center-footer-block p:nth-child(2){
+    float: right;
+    color: #999999;
+    font-size: 0.8125em;
+}
+
+
+

@@ -1,0 +1,29 @@
+@screen-resolution: 1701.5px 1537.5px 1435px 1230px 1024px;//2050px
+@img-adaptive: 647px 564.9px 504.633px 451.917px ;//900px
+
+@media screen and (max-width: extract(@screen-resolution, 1)){
+.input-search{
+    margin: 6px 6.82% 0 0!important;
+  }
+.wrap-menu-slider{
+    min-height: extract(@img-adaptive, 1)!important;
+  }
+  .wrap-search-form{
+    right: 165px!important;
+  }
+}
+@media screen and (max-width: extract(@screen-resolution, 2)){
+  .wrap-menu-slider{
+    min-height: extract(@img-adaptive, 2)!important;
+  }
+}
+@media screen and (max-width: extract(@screen-resolution, 3)){
+  .wrap-menu-slider{
+    min-height: extract(@img-adaptive, 3)!important;
+  }
+}
+@media screen and (max-width: extract(@screen-resolution, 4)){
+  .wrap-menu-slider{
+    min-height: extract(@img-adaptive, 4)!important;
+  }
+}

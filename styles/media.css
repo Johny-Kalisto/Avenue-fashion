@@ -1,0 +1,26 @@
+@media screen and (max-width: 1701.5px) {
+  .input-search {
+    margin: 6px 6.82% 0 0!important;
+  }
+  .wrap-menu-slider {
+    min-height: 647px !important;
+  }
+  .wrap-search-form {
+    right: 165px!important;
+  }
+}
+@media screen and (max-width: 1537.5px) {
+  .wrap-menu-slider {
+    min-height: 564.9px !important;
+  }
+}
+@media screen and (max-width: 1435px) {
+  .wrap-menu-slider {
+    min-height: 504.633px !important;
+  }
+}
+@media screen and (max-width: 1230px) {
+  .wrap-menu-slider {
+    min-height: 451.917px !important;
+  }
+}
