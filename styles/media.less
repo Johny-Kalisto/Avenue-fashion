@@ -1,29 +1,53 @@
-@screen-resolution: 1701.5px 1537.5px 1435px 1230px 1024px;//2050px
-@img-adaptive: 647px 564.9px 504.633px 451.917px ;//900px
+@high-resolution: 1701.5px 1537.5px 1435px 1230px 1024px;//2050px
+@slider-img-adaptive: 763.3px 644px 552px 460px ;//920px
+@font-sizes-h1: 2.49em 2.1em 1.8em 1.5em;//3em;
+@font-sizes-p: 0.778125em 0.65625em 0.5625em 0.6875em;//0.9375em
+@font-sizes-a: 0.83em 0.7em 0.6em 0.5em;//1em
+@height-main-blocks: 747px 630px 540px 450px;//900px
+@height-little-block: 415px 350px 300px 250px;//500px
 
-@media screen and (max-width: extract(@screen-resolution, 1)){
-.input-search{
-    margin: 6px 6.82% 0 0!important;
+@media screen and (max-width: extract(@high-resolution, 1)) {
+  .two-block-products div .main-product{
+    height: extract(@height-main-blocks, 1);
   }
-.wrap-menu-slider{
-    min-height: extract(@img-adaptive, 1)!important;
+  .left-block article {
+    height: extract(@height-little-block, 1);
   }
-  .wrap-search-form{
-    right: 165px!important;
-  }
-}
-@media screen and (max-width: extract(@screen-resolution, 2)){
-  .wrap-menu-slider{
-    min-height: extract(@img-adaptive, 2)!important;
+  .right-block article {
+    height: extract(@height-little-block, 1);
   }
 }
-@media screen and (max-width: extract(@screen-resolution, 3)){
-  .wrap-menu-slider{
-    min-height: extract(@img-adaptive, 3)!important;
+@media screen and (max-width: extract(@high-resolution, 2)){
+  .two-block-products div .main-product{
+    height: extract(@height-main-blocks, 2);
+  }
+  .left-block article {
+    height: extract(@height-little-block, 2);
+  }
+  .right-block article {
+    height: extract(@height-little-block, 2);
   }
 }
-@media screen and (max-width: extract(@screen-resolution, 4)){
-  .wrap-menu-slider{
-    min-height: extract(@img-adaptive, 4)!important;
+@media screen and (max-width: extract(@high-resolution, 3)){
+  .two-block-products div .main-product{
+    height: extract(@height-main-blocks, 3);
+  }
+  .left-block article {
+    height: extract(@height-little-block, 3);
+  }
+  .right-block article {
+    height: extract(@height-little-block, 3);
   }
 }
+@media screen and (max-width: extract(@high-resolution, 4)){
+  .two-block-products div .main-product{
+    height: extract(@height-main-blocks, 4);
+  }
+  .left-block article {
+    height: extract(@height-little-block, 4);
+  }
+  .right-block article {
+    height: extract(@height-little-block, 4);
+  }
+}
+//mobile resolutions
